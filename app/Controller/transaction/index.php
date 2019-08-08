@@ -7,7 +7,7 @@ use Model\Dao\Item;
 // 取引履歴画面コントローラ
 $app->get('/transaction/', function (Request $request, Response $response) {
 
-  // ユーザーIDをセッションから取得
+  // ユーザーIDをセッションから取得(買う側
   $data = $this->session["user_info"];
 
   // 取得したユーザーIDでPayinfoテーブルを検索
