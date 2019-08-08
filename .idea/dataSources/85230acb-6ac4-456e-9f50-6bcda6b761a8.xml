@@ -4029,174 +4029,185 @@
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="915" parent="291" name="payout_date">
+    <column id="915" parent="291" name="transaction_status">
       <Position>5</Position>
+      <DataType>int(11) unsigned|0s</DataType>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="916" parent="291" name="payout_date">
+      <Position>6</Position>
       <DataType>datetime|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
+      <OnUpdate>CURRENT_TIMESTAMP</OnUpdate>
     </column>
-    <index id="916" parent="291" name="user1_id">
+    <column id="917" parent="291" name="new_column">
+      <Position>7</Position>
+      <DataType>int(11)|0s</DataType>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <index id="918" parent="291" name="user1_id">
       <ColNames>user1_id</ColNames>
       <Type>btree</Type>
     </index>
-    <index id="917" parent="291" name="user2_id">
+    <index id="919" parent="291" name="user2_id">
       <ColNames>user2_id</ColNames>
       <Type>btree</Type>
     </index>
-    <index id="918" parent="291" name="item_id">
+    <index id="920" parent="291" name="item_id">
       <ColNames>item_id</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="919" parent="291" name="PRIMARY">
+    <key id="921" parent="291" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <foreign-key id="920" parent="291" name="Payinfo_ibfk_1">
+    <foreign-key id="922" parent="291" name="Payinfo_ibfk_1">
       <ColNames>user1_id</ColNames>
       <RefSchemaName>team-a</RefSchemaName>
       <RefTableName>Users</RefTableName>
       <RefColNames>id</RefColNames>
     </foreign-key>
-    <foreign-key id="921" parent="291" name="Payinfo_ibfk_2">
+    <foreign-key id="923" parent="291" name="Payinfo_ibfk_2">
       <ColNames>user2_id</ColNames>
       <RefSchemaName>team-a</RefSchemaName>
       <RefTableName>Users</RefTableName>
       <RefColNames>id</RefColNames>
     </foreign-key>
-    <foreign-key id="922" parent="291" name="Payinfo_ibfk_3">
+    <foreign-key id="924" parent="291" name="Payinfo_ibfk_3">
       <ColNames>item_id</ColNames>
       <RefSchemaName>team-a</RefSchemaName>
       <RefTableName>Items</RefTableName>
       <RefColNames>id</RefColNames>
     </foreign-key>
-    <column id="923" parent="292" name="item_id">
+    <column id="925" parent="292" name="item_id">
       <Position>1</Position>
       <DataType>int(11) unsigned|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="924" parent="292" name="tag_id">
+    <column id="926" parent="292" name="tag_id">
       <Position>2</Position>
       <DataType>int(11) unsigned|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="925" parent="292" name="delete_flg">
+    <column id="927" parent="292" name="delete_flg">
       <Position>3</Position>
       <DataType>int(1)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="926" parent="292" name="item_id">
+    <index id="928" parent="292" name="item_id">
       <ColNames>item_id</ColNames>
       <Type>btree</Type>
     </index>
-    <index id="927" parent="292" name="tag_id">
+    <index id="929" parent="292" name="tag_id">
       <ColNames>tag_id</ColNames>
       <Type>btree</Type>
     </index>
-    <foreign-key id="928" parent="292" name="Tagmaps_ibfk_1">
+    <foreign-key id="930" parent="292" name="Tagmaps_ibfk_1">
       <ColNames>item_id</ColNames>
       <RefSchemaName>team-a</RefSchemaName>
       <RefTableName>Items</RefTableName>
       <RefColNames>id</RefColNames>
     </foreign-key>
-    <foreign-key id="929" parent="292" name="Tagmaps_ibfk_2">
+    <foreign-key id="931" parent="292" name="Tagmaps_ibfk_2">
       <ColNames>tag_id</ColNames>
       <RefSchemaName>team-a</RefSchemaName>
       <RefTableName>Tags</RefTableName>
       <RefColNames>id</RefColNames>
     </foreign-key>
-    <column id="930" parent="293" name="id">
+    <column id="932" parent="293" name="id">
       <Position>1</Position>
       <DataType>int(11) unsigned|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="931" parent="293" name="name">
+    <column id="933" parent="293" name="name">
       <Position>2</Position>
       <DataType>varchar(255)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <key id="932" parent="293" name="PRIMARY">
+    <key id="934" parent="293" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="933" parent="294" name="id">
+    <column id="935" parent="294" name="id">
       <Position>1</Position>
       <DataType>int(11) unsigned|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="934" parent="294" name="univ_name">
+    <column id="936" parent="294" name="univ_name">
       <Position>2</Position>
       <DataType>varchar(255)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="935" parent="294" name="campas_name">
+    <column id="937" parent="294" name="campas_name">
       <Position>3</Position>
       <DataType>varchar(255)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <key id="936" parent="294" name="PRIMARY">
+    <key id="938" parent="294" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="937" parent="295" name="id">
+    <column id="939" parent="295" name="id">
       <Position>1</Position>
       <DataType>int(11) unsigned|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="938" parent="295" name="name">
+    <column id="940" parent="295" name="name">
       <Position>2</Position>
       <DataType>varchar(255)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="939" parent="295" name="password">
+    <column id="941" parent="295" name="password">
       <Position>3</Position>
       <DataType>varchar(255)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="940" parent="295" name="univ_id">
+    <column id="942" parent="295" name="univ_id">
       <Position>4</Position>
       <DataType>int(11) unsigned|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="941" parent="295" name="student_no">
+    <column id="943" parent="295" name="student_no">
       <Position>5</Position>
       <DataType>int(11) unsigned|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="942" parent="295" name="money">
+    <column id="944" parent="295" name="money">
       <Position>6</Position>
       <DataType>int(11) unsigned|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="943" parent="295" name="univ_id">
+    <index id="945" parent="295" name="univ_id">
       <ColNames>univ_id</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="944" parent="295" name="PRIMARY">
+    <key id="946" parent="295" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <foreign-key id="945" parent="295" name="Users_ibfk_1">
+    <foreign-key id="947" parent="295" name="Users_ibfk_1">
       <ColNames>univ_id</ColNames>
       <RefSchemaName>team-a</RefSchemaName>
       <RefTableName>Univ</RefTableName>
