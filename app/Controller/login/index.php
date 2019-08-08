@@ -41,7 +41,7 @@ $app->post('/login/', function (Request $request, Response $response) {
 
     } else {
         //入力項目がマッチしない場合エラーを出す
-        $data["error"] = "ユーザー名かパスワードが間違っています";
+        $data["error"] = "メールアドレスかパスワードが間違っています";
     }
 
     // Render index view
