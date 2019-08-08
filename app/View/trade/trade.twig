@@ -1,0 +1,39 @@
+{#レイアウトを継承します#}
+{% extends "layout/layout.twig" %}
+
+{#HTMLのタイトルを定義します。#}
+{% block title %}サービス名{% endblock %}
+
+{% block page_content %}
+<div class="trade-screen">
+  <div class="trade-describe">
+
+  </div>
+
+  <div class="trade-item">
+    <div class="trade-item-image">
+      <img src="item.png" alt="">
+    </div>
+  </div>
+
+  <div class="trade-user-info">
+    <div class="trade-user-info-univ">
+
+    </div>
+    <div class="trade-user-info-name">
+
+    </div>
+    <div class="trade-user-info-itemtag">
+
+    </div>
+  </div>
+
+  <div class="trade-money">
+
+  </div>
+
+  <div class="trade-button">
+    <button type="button" class="purchase-btn"　autofocus="true">購入する</button>
+  </div>
+</div>
+{% endblock %}
