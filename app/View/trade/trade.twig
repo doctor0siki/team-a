@@ -5,35 +5,43 @@
 {% block title %}サービス名{% endblock %}
 
 {% block page_content %}
+{% for user in users %}
 <div class="trade-screen">
-  <div class="trade-describe">
 
+  <div class="trade-item-name">
+    // アイテムの名前
+    <h2 class="item-name">{{ user.name }}</h2>
+  </div>
+    // アイテムの説明
+  <div class="trade-describe">
+    <p class="item-desc">{{ user.describe }}</p>
   </div>
 
   <div class="trade-item">
     <div class="trade-item-image">
-      <img src="item.png" alt="">
+      <img class="trade-image" src="/assets/img/item.png" alt="">
     </div>
   </div>
 
   <div class="trade-user-info">
     <div class="trade-user-info-univ">
-
+        <p class="univ-name">{{ user.univ_name }}</p>
+    </div>
+    <div class="trade-user-info-campas">
+        <p class="campas-name">{{ user.campas_name }}</p>
     </div>
     <div class="trade-user-info-name">
-
+        <p class="user-name">{{ user.username }}</p>
     </div>
     <div class="trade-user-info-itemtag">
-
+        <p class="item-tag">{{ user.itemname }}</p>
     </div>
-  </div>
-
-  <div class="trade-money">
-
   </div>
 
   <div class="trade-button">
+    <p class="trade-money-sentence">￥{{ user.money }}</p>
     <button type="button" class="purchase-btn"　autofocus="true">購入する</button>
   </div>
+{% endfor %}
 </div>
 {% endblock %}
