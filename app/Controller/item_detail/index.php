@@ -8,7 +8,7 @@ use Model\Dao\Items;
 use Model\Dao\Univ;
 
 // TRADEページのコントローラ
-$app->get('/trade', function (Request $request, Response $response) {
+$app->get('/item_detail/', function (Request $request, Response $response) {
 
     $sql = "select
 Users.name as username,
