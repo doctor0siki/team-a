@@ -8,22 +8,22 @@ use Model\Dao\Item;
 // 取引履歴画面コントローラ
 $app->get('/transaction/', function (Request $request, Response $response) {
 
-    // ログインされている時……
+  // ユーザーIDをセッションから取得
+//  $data = $this->session["user_info"];
 
-    // セッションのデータ(user_id)でItemsテーブルを参照し、出品しているすべての商品の情報を取得する。
+  // 取得したユーザーIDでPayinfoテーブルを検索
+  $queryBuilder = new QueryBuilder($this->db);
+  $queryBuilder->select("P.id, I.id, I.name, I.price, P.transaction_status
+    FROM Payinfo P
+      INNER JOIN Users U ON P.user2_id = U.id
+      INNER JOIN Items I on P.item_id = I.id
+    WHERE P.user2_id = 2");
+  $query = $queryBuilder->execute();
+  $result = $query->fetchAll();
 
-    // Render index view
-    return $this->view->render($response, 'transaction/history.twig', $data);
+  // セッションのデータ(user_id)でItemsテーブルを参照し、出品しているすべての商品の情報を取得する。
+  return $this->view->render($response, 'transaction/history.twig', $result);
 });
 
 // 取引詳細画面コントローラ
 //          ↓の書き方が謎
-$app->get('/transaction/', function (Request $request, Response $response) {
-
-    // ログインされている時……
-
-    // GETリクエストデータ(item_id)でItemsテーブルを参照し、出品している商品の情報を取得する。
-
-    // Render index view
-    return $this->view->render($response, 'transaction/detail.twig', $data);
-});
