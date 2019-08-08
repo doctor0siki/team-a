@@ -18,14 +18,12 @@ $app->get('/transaction/', function (Request $request, Response $response) {
 
 // 取引詳細画面コントローラ
 //          ↓の書き方が謎
-/*
-$app->get('/transaction/', function (Request $request, Response $response) {
+// $app->get('/transaction/', function (Request $request, Response $response) {
 
-    // ログインされている時……
+//     // ログインされている時……
 
-    // GETリクエストデータ(item_id)でItemsテーブルを参照し、出品している商品の情報を取得する。
+//     // GETリクエストデータ(item_id)でItemsテーブルを参照し、出品している商品の情報を取得する。
 
-    // Render index view
-    return $this->view->render($response, 'transaction/detail.twig', $data);
-});
-*/
+//     // Render index view
+//     return $this->view->render($response, 'transaction/detail.twig', $data);
+// });

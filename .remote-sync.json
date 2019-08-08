@@ -4,7 +4,11 @@
   "deleteLocal": false,
   "hostname": "192.168.0.19",
   "port": "22",
+<<<<<<< HEAD
+  "target": "/opt/intern/app/team-a1/project",
+=======
   "target": "/opt/intern/app/team-a2/project",
+>>>>>>> 61f7aad0e8cb9534b8767f71f2287544a8f5ee4b
   "ignore": [
     ".remote-sync.json",
     ".git/**"
