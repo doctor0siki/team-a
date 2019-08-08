@@ -7,8 +7,8 @@ use Model\Dao\Users;
 use Model\Dao\Items;
 use Model\Dao\Univ;
 
-// TOPページのコントローラ
-$app->get('/', function (Request $request, Response $response) {
+// TRADEページのコントローラ
+$app->get('/purchase', function (Request $request, Response $response) {
 
   $sql = "select
 Users.name as username,
@@ -24,6 +24,7 @@ inner join Items
 on Items.id = Payinfo.id
 inner join Univ
 on Univ.id = Payinfo.id
+where Items.id = 1
 ;";
 
   $stmt = $this->db->prepare($sql);
@@ -32,7 +33,8 @@ on Univ.id = Payinfo.id
   $users = [];
   $users['users'] = $data;
 
-    // Render index view
-    return $this->view->render($response, 'top/index.twig', $users);
-});
 
+
+    // Render index view
+    return $this->view->render($response, 'purchase/purchase.twig', $users);
+});
