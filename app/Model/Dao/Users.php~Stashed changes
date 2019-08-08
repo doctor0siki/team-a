@@ -3,9 +3,9 @@
 namespace Model\Dao;
 
 /**
- * Class User
+ * Class Users
  *
- * Userテーブルを扱う Classです
+ * Usersテーブルを扱う Classです
  * DAO.phpに用意したCRUD関数以外を実装するときに、記載をします。
  *
  * @copyright Ceres inc.
@@ -13,7 +13,7 @@ namespace Model\Dao;
  * @since 2018/08/28
  * @package Model\Dao
  */
-class User extends Dao
+class Users extends Dao
 {
 
 
