@@ -32,5 +32,5 @@ on Univ.id = Payinfo.id
     $users = [];
     $users['users'] = $data;
 
-    return $this->view->render($response, 'trade/trade.twig', $users);
+    return $this->view->render($response, 'item_detail/item_detail.twig', $users);
 });
