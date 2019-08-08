@@ -1,20 +1,33 @@
-
 {% extends "layout/layout.twig" %}
-
 
 {% block title %}出品{% endblock %}
 {% block page_content %}
+  <img src="https://dummyimage.com/300.png/09f/fff"
+    class="rounded mx-auto d-block" alt="...">
 
-<img src="https://dummyimage.com/300.png/09f/fff" alt="">
+  <h2 class="red-text text-center" style="margin-top:50px;">出品者</h2>
 
+    <div class="col-md text-center" style="width:50%; margin: auto;">
+      <h3 style="margin-left: -80%;">descriptions</h3>
 
-<p class="discription">hoge, hoge, hoge</p>
-
-<button><a href="#">confirm</a></button>
+      <div class="form-group">
+        <form action="/item_register_done/" method="post">
+          <label for="item_name">item name</label>
+              <input type="text" class="form-control"
+                id="item_name" name="item_text"
+                placeholder="item_name">
+              <input type="text" class="form-control"
+                id="item_description" name="item_description"
+                placeholder="Description">
+              <input type="text" class="form-control"
+                id="item_price" name="item_price"
+                placeholder="Price">
+        <button style="margin-top: 30px;"
+         type="submit" class="btn btn-primary">confirm</button>
+      </form>
+  </div>
 
 
 {% endblock %}
-
-
 
 {% block footer_scripts_add %}{% endblock %}
