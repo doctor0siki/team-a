@@ -1,8 +1,29 @@
-{# ヘッダー #}
+{% extends "layout/layout.twig" %}
 
-{# 商品名:name #}
-{# 商品画像:id #}
-{# 商品説明:description #}
-{# 商品価格:price #}
+{% block title %}取引詳細{% endblock %}
+
+{% block header_scripts_add %}{% endblock %}
+
+{% block page_content %}
+
+    {% for record in result %}
+        <div class = 'text-center'>
+            <img width = '300'; height ='300';
+                src="/assets/img/item-{{ record.id }}.png" >
+        </div>
+        <div style = 'text-align: center; font-size: 38px'>
+            {{ record.name }}
+        </div>
+        <div style = 'text-align: center; font-size: 30px'>
+            {{ record.describe }}
+        </div>
+        <div style = 'text-align: center; font-size: 30px'>
+            {{ record.price }} 円
+        </div>
+
+    {% endfor %}
+
+{% endblock %}
 
 {# フッター #}
+{% block footer_scripts_add %}{% endblock %}
