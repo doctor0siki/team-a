@@ -38,6 +38,20 @@ where Users.id = ?
     $users = [];
     $users['user'] = $data;
 
+    //
+    $sql = "select
+    money
+    from Users 
+    where id = ?
+    ;";
+
+    $stmt = $this->db->prepare($sql);
+    $stmt->bindValue(1,  $this->session["user_info"]['id']);
+    $stmt->execute();
+    $data = $stmt->fetch();
+    $users['user']['money'] = $data['money'];
+
+
 
     return $this->view->render($response, 'item_detail/item_detail.twig', $users);
 });
