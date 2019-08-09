@@ -1,8 +1,8 @@
 <?php
-namespace Model\Dao
+namespace Model\Dao;
 
 class Payinfo extends Dao
 {
-  
+
 }
 ?>

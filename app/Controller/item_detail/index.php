@@ -6,12 +6,15 @@ use Model\Dao\Payinfo;
 use Model\Dao\Users;
 use Model\Dao\Items;
 use Model\Dao\Univ;
+use Model\Dao\Tags;
 
 // TRADEページのコントローラ
 $app->get('/item_detail/{id}/', function (Request $request, Response $response, $args) {
     $sql = "select
 Users.name as username,
 Items.name as itemname,
+Tags.name as tagname,
+Tags.*,
 Univ.*,
 Users.*,
 Items.*,
@@ -23,6 +26,8 @@ inner join Items
 on Items.id = Payinfo.id
 inner join Univ
 on Univ.id = Payinfo.id
+inner join Tags
+on Tags.id = Payinfo.id
 where Users.id = ?
 ;";
     $id = $args['id'];

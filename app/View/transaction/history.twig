@@ -9,10 +9,6 @@
 
 
 {% block page_content %}
-{% for result in result %}
-    {{ dump(result)  }}
-    <br>
-{% endfor %}
 
 
 <table class="table table-striped">
@@ -28,9 +24,9 @@
     {% for record in result %}
     <tr>
         <td>
-                <a href="./detail/{{ record.id  }}" >
+                <a href="./detail/{{ record.p_id  }}/" >
                     <img width = '100'; height ='100';
-                        src="/assets/img/item-{{ record.id }}.png" >
+                        src="/assets/img/item-{{ record.i_id }}.png" >
                 </a>
         </td>
         <td>

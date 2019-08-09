@@ -1,5 +1,5 @@
 <?php
-namespace Model\Dao
+namespace Model\Dao;
 
 class Tags extends Dao
 {
