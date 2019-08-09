@@ -8,21 +8,25 @@ use Model\Dao\Item;
 $app->get('/transaction/', function (Request $request, Response $response) {
 
   // ユーザーIDをセッションから取得(買う側
-  $data = $this->session["user_info"];
+  //$data = $this->session["user_info"];
+  $data['id'] = 2;
 
   // 取得したユーザーIDでPayinfoテーブルを検索
   $sql = "
-    SELECT P.id, I.id, I.name, I.price, P.transaction_status
+    SELECT P.id, I.id, I.name, I.price, I.describe, P.transaction_status
     FROM Payinfo P
       INNER JOIN Users U ON P.user2_id = U.id
       INNER JOIN Items I on P.item_id = I.id
-    WHERE P.user2_id = ".$data['id'];
+    WHERE P.user2_id = ?";
   $stmt = $this->db->prepare($sql);
+  $stmt->bindValue(1, $data['id']);
   $stmt->execute();
-  $result = $stmt->fetchAll();
+//  var_dump($result); exit;
+  $params['result'] = $stmt->fetchAll();
+  var_dump($params['result']);
 
   // セッションのデータ(user_id)でItemsテーブルを参照し、取引しているすべての商品の情報を取得する。
-  return $this->view->render($response, 'transaction/history.twig', $result);
+  return $this->view->render($response, 'transaction/history.twig', $params);
 });
 
 // 取引詳細画面コントローラ
@@ -89,7 +93,6 @@ $app->post('/transaction/complete', function (Request $request, Response $respon
     WHERE I.id = ".$get_data['id'];
   $stmt = $this->db->prepare($sql);
   $stmt->execute();
-  $result = $stmt->fetchAll();
 
   // 取引完了ボタンがただのステータス表示に切り替わる。
   return $this->view->render($response, 'transaction/detail.twig', $result);
