@@ -29,12 +29,19 @@ $app->get('/purchase/', function (Request $request, Response $response) {
         Payinfo(user1_id, user2_id, item_id, transaction_status, payout_date)
     VALUES 
         (:user1_id, :user2_id, :item_id, 0, NOW())";
-
   $stmt = $this->db->prepare($sql);
   $params = array(':user_id' => $data['user_id'],
                   ':user2_id' => $session['login_id'],
                   'item_id' => $get_data['id']);
   $stmt->execute($params);
+
+  // Itemsのステータスも変更しておく。1:取引完了(sold状態)
+  $sql = "
+        UPADTE Items
+         SET payout_state = 1
+         WHERE id = ".$get_data['id'];
+  $stmt = $this->db->prepare($sql);
+  $stmt->execute();
 
 
   // 購入者側のmoneyを引いておく。
@@ -54,6 +61,6 @@ $app->get('/purchase/', function (Request $request, Response $response) {
   $stmt = $this->db->prepare($sql);
   $stmt->execute();
 
-    // Render index view
-    return $this->view->render($response, 'purchase/purchase.twig', $users);
+    // 購入完了画面(サンクス)
+    return $this->view->render($response, 'purchase/purchase.twig');
 });
