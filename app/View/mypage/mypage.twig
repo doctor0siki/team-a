@@ -9,3 +9,32 @@
 {# メール:email #}
 {# 学籍No:student_no #}
 {# パスワード:password #}
+
+{% extends "layout/layout.twig" %}
+
+{#HTMLのタイトルを定義します。#}
+{% block title %}サービス名{% endblock %}
+
+{% block page_content %}
+
+<div class="mypage-screen">
+    <div class="mypage-user-name">
+        <p>氏名  {{ user.name }}</p>
+    </div>
+
+    <div class="mypage-user-email">
+        <p>e-mai  {{ user.email }}</p>
+    </div>
+    <div class="mypage-user-password">
+        <p>パスワード  {{ user.password }}</p>
+    </div>
+
+    <div class="mypage-user-univname">
+        <p>大学名  {{ user.univ_name }}</p>
+    </div>
+
+    <div class="mypage-user-student-no">
+        <p>学籍番号   {{ user.student_no }}</p>
+    </div>
+</div>
+{% endblock %}

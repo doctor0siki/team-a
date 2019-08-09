@@ -3,24 +3,30 @@
 use Slim\Http\Request;
 use Slim\Http\Response;
 use Model\Dao\Users;
+use Model\Dao\Univ;
 use Doctrine\DBAL\Query\QueryBuilder;
 
 
 // マイページ画面コントローラ
-$app->get('/mypage/', function (Request $request, Response $response) {
+$app->get('/mypage/', function (Request $request, Response $response, $args) {
   $data = $this->session["user_info"];
+  var_dump($data);
 
-  // ログインしている時…
-  // if (!empty($this->session["user_info"])) {
-
-  // セッションのデータ(user_id)でUsersテーブルを参照し、ユーザー情報を取得する。
-  $queryBuilder = new QueryBuilder($this->db);
-  $queryBuilder->select("* FROM Users WHERE id = ".$data['id']);
-  $query = $queryBuilder->execute();
-  $result = $query->fetchAll();
+  $sql = "select
+*
+from Users
+inner join Univ
+ON Users.univ_id = Univ.id
+where Users.id = ?
+;";
+  $stmt = $this->db->prepare($sql);
+  $stmt->bindValue(1, $data['id']);
+  $stmt->execute();
+  $data = $stmt->fetch();
+  $users['user'] = $data;
 
   // Render index view
-  return $this->view->render($response, 'mypage/mypage.twig', $result);
+  return $this->view->render($response, 'mypage/mypage.twig', $users);
 
 //// ログインしていない時…
 //else {
