@@ -56,9 +56,41 @@ $app->post('/transaction/complete', function (Request $request, Response $respon
 
   // 商品価格分の料金データを売り手userのmoneyに追加する。
   // 売り手userのmoneyを取得
+  $sql = "
+    SELECT U.id, U.money, I.price
+    FROM Payinfo P
+      INNER JOIN Users U on P.user1_id = U.id
+      INNER JOIN Items I on P.item_id = I.id
+    WHERE P.id = 3;".$get_data['id'];
+  $stmt = $this->db->prepare($sql);
+  $stmt->execute();
+  $data = $stmt->fetchAll();
+
+  $data['money'] = $data['money'] - $data['price'];
+
+  // user1のmoneyを更新
+  $sql = "UPDATE Users SET money = {$data['money']} WHERE id = {$data['id']}";
+  $stmt = $this->db->prepare($sql);
+  $stmt->execute();
 
   // Payinfoのpayout_dateとtrasaction_statusを更新する
+  $sql = "UPDATE Payinfo
+            SET payout_date = NOW(),
+                transaction_status = 1
+            WHERE id = {$get_data['id']}";
+  $stmt = $this->db->prepare($sql);
+  $stmt->execute();
 
-  // セッションのデータ(user_id)でItemsテーブルを参照し、取引しているすべての商品の情報を取得する。
+  // 取引IDからPayinfoを検索する(表示用)
+  $sql = "
+    SELECT I.id, I.name, I.describe, I.price, P.payout_date, P.transaction_status
+    FROM Items I
+        INNER JOIN Payinfo P on I.id = P.item_id
+    WHERE I.id = ".$get_data['id'];
+  $stmt = $this->db->prepare($sql);
+  $stmt->execute();
+  $result = $stmt->fetchAll();
+
+  // 取引完了ボタンがただのステータス表示に切り替わる。
   return $this->view->render($response, 'transaction/detail.twig', $result);
 });
