@@ -9,32 +9,54 @@ use Model\Dao\Univ;
 
 $app->get('/thanks/{id}/', function (Request $request, Response $response, $args) {
 
+  $itemId = $args['id'];
+
   $sql = "select
-Users.name as username,
-Items.name as itemname,
-Univ.*,
-Users.*,
-Items.*,
-Payinfo.*
-from Users
-inner join Payinfo
-on Users.id = Payinfo.id
-inner join Items
-on Items.id = Payinfo.id
-inner join Univ
-on Univ.id = Payinfo.id
-where Users.id = ?
-;";
-  $id = $args['id'];
+  Items.user_id,
+  Items.price
+  from Items
+  where Items.id = ?
+  ;";
+
   $stmt = $this->db->prepare($sql);
-  $stmt->bindValue(1, $id);
+  $stmt->bindValue(1, $itemId);
   $stmt->execute();
   $data = $stmt->fetch();
-  $users = [];
-  $users['user'] = $data;
+
+  $user1_id = $data['user_id'];
+  $user2_id = $this->session["user_info"]['id'];
+
+// Payinfoに購入情報を登録
+// 必要な情報…… user1_id:session_id, user2_id:I.user_id, item_id:I.id
+
+  $this->db->insert('Payinfo', [
+      'user1_id' => $user1_id,
+      'user2_id' => $user2_id,
+      'payout_date' => date("Y-m-d H:i:s"),
+      'item_id' => $itemId,
+      'transaction_status' => 1
+  ]);
+
+// Itemsのステータスも変更しておく。1:取引完了(sold状態)
+$this->db->update('Items', ['payout_state' => 1], ['id'=>$itemId]);
+
+
+
+  // 購入者側のmoneyを引いておく。
+// 購入者のmoneyを取得
+$sql = "SELECT money FROM Users WHERE id = ".$user2_id;
+$stmt = $this->db->prepare($sql);
+$stmt->execute();
+$data_cal = $stmt->fetch();
+
+// moneyからpriceを引く
+$balance = $data_cal['money'] - $data['price'];
+
+
+$this->db->update('Users', ['money' => $balance], ['id'=>$user2_id]);
 
 
 
     // Render index view
-    return $this->view->render($response, 'thanks/thanks.twig', $users);
+    return $this->view->render($response, 'thanks/thanks.twig');
 });

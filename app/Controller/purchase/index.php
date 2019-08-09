@@ -11,52 +11,36 @@ use Model\Dao\Univ;
 // TRADEページのコントローラ
 $app->get('/purchase/{id}/', function (Request $request, Response $response, $args) {
 
-    $itemId = $args['id'];
-
-    $sql = "select
-    Items.user_id,
-    Items.price
-    from Items 
-    where Items.id = ?
-    ;";
-
-    $stmt = $this->db->prepare($sql);
-    $stmt->bindValue(1, $itemId);
-    $stmt->execute();
-    $data = $stmt->fetch();
-
-    $user1_id = $data['user_id'];
-    $user2_id = $this->session["user_info"]['id'];
-
-  // Payinfoに購入情報を登録
-  // 必要な情報…… user1_id:session_id, user2_id:I.user_id, item_id:I.id
-
-    $this->db->insert('Payinfo', [
-        'user1_id' => $user1_id,
-        'user2_id' => $user2_id,
-        'payout_date' => date("Y-m-d H:i:s"),
-        'item_id' => $itemId,
-        'transaction_status' => 1
-    ]);
-
-  // Itemsのステータスも変更しておく。1:取引完了(sold状態)
-  $this->db->update('Items', ['payout_state' => 1], ['id'=>$itemId]);
-
-
-
-    // 購入者側のmoneyを引いておく。
-  // 購入者のmoneyを取得
-  $sql = "SELECT money FROM Users WHERE id = ".$user2_id;
+  $sql = "select
+Users.name as username,
+Items.name as itemname,
+Tags.name as tagname,
+Tags.*,
+Univ.*,
+Users.*,
+Items.*,
+Payinfo.*
+from Users
+inner join Payinfo
+on Users.id = Payinfo.id
+inner join Items
+on Items.id = Payinfo.id
+inner join Univ
+on Univ.id = Payinfo.id
+inner join Tags
+on Tags.id = Payinfo.id
+where Users.id = ?
+;";
+  $user_id = $this->session["user_info"]['id'];
   $stmt = $this->db->prepare($sql);
+  $stmt->bindValue(1, $user_id);
   $stmt->execute();
-  $data_cal = $stmt->fetch();
+  $data = $stmt->fetch();
+  $users = [];
+  $users['user'] = $data;
 
-  // moneyからpriceを引く
-  $balance = $data_cal['money'] - $data['price'];
+  $user_id = $this->session["user_info"]['id'];
 
 
-  $this->db->update('Users', ['money' => $balance], ['id'=>$user2_id]);
-
-    // Render index view
-    return $this->view->render($response, 'thanks/thanks.twig');
+    return $this->view->render($response, 'purchase/purchase.twig', $users);
 });
