@@ -14,12 +14,15 @@
         <h1>サービス名</h1>
     </div>
     <div class="search">
-      <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-
       <form method="get" action="#" class="search_container">
         <input type="text" size="25" placeholder="キーワード検索">
         <input type="submit" value="&#xf002">
       </form>
+    </div>
+    <div class="mypage">
+      <a href="/mypage/">
+          <button type="submit" class="purchase-btn"　autofocus="true">マイページ</button>
+      </a>
     </div>
     <div class="image-grid">
         {% for user in users %}
