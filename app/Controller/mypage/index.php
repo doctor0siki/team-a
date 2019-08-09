@@ -10,7 +10,6 @@ use Doctrine\DBAL\Query\QueryBuilder;
 // マイページ画面コントローラ
 $app->get('/mypage/', function (Request $request, Response $response, $args) {
   $data = $this->session["user_info"];
-  var_dump($data);
 
   $sql = "select
 *
