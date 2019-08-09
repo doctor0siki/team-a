@@ -21,30 +21,32 @@ $app->get('/transaction/', function (Request $request, Response $response) {
   $stmt = $this->db->prepare($sql);
   $stmt->bindValue(1, $data['id']);
   $stmt->execute();
-//  var_dump($result); exit;
   $params['result'] = $stmt->fetchAll();
+  echo '<pre>';
   var_dump($params['result']);
+  echo '</pre>';
 
   // セッションのデータ(user_id)でItemsテーブルを参照し、取引しているすべての商品の情報を取得する。
   return $this->view->render($response, 'transaction/history.twig', $params);
 });
 
 // 取引詳細画面コントローラ
-$app->get('/transaction/detail', function (Request $request, Response $response) {
+$app->get('/transaction/detail/', function (Request $request, Response $response) {
 // $result = [];
-  // 商品IDをgetリクエストから取得
+  // 取引IDをgetリクエストから取得
   $get_data = $request->getQueryParams();
 
   // 取得したユーザーIDでPayinfoテーブルを検索
   $sql = "
-    SELECT I.id, I.name, I.describe, I.price, P.transaction_status, U.id AS user_id, U.name AS user_name
-    FROM Payinfo P
-        INNER JOIN Users U ON P.user2_id = U.id
+        SELECT I.id, I.name, I.`describe`, I.price, P.transaction_status
+        FROM Payinfo P
         INNER JOIN Items I on P.item_id = I.id
-    WHERE P.item_id = ".$get_data['id'];
+        WHERE P.id = ?";
   $stmt = $this->db->prepare($sql);
+  $stmt->bindValue(1, $get_data['id']);
   $stmt->execute();
+  $params['result'] = $stmt->fetchAll();
 
   // セッションのデータ(user_id)でItemsテーブルを参照し、取引しているすべての商品の情報を取得する。
-  return $this->view->render($response, 'transaction/detail.twig', $result);
+  return $this->view->render($response, 'transaction/detail.twig', $params);
 });
