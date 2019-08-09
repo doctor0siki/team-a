@@ -2,7 +2,7 @@
 
 use Slim\Http\Request;
 use Slim\Http\Response;
-use Model\Dao\User;
+use Model\Dao\Users;
 
 // ログイン画面コントローラ
 $app->get('/login/', function (Request $request, Response $response) {
@@ -22,7 +22,7 @@ $app->post('/login/', function (Request $request, Response $response) {
     $data = $request->getParsedBody();
 
     //ユーザーDAOをインスタンス化
-    $user = new User($this->db);
+    $user = new Users($this->db);
 
     $param["email"] = $data["email"];
     $param["password"] = $data["password"];
