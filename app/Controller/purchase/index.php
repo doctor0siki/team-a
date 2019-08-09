@@ -7,16 +7,36 @@ use Model\Dao\Users;
 use Model\Dao\Items;
 use Model\Dao\Univ;
 
-// 商品購入処理のコントローラ
-$app->get('/purchase/', function (Request $request, Response $response) {
-  // 商品IDをGETリクエストで取得
-  $get_data = $request->getQueryParams();
 
-  $sql = "SELECT user_id, price FROM Items WHERE id = ".$get_data['id'];
+// TRADEページのコントローラ
+$app->get('/purchase/{id}/', function (Request $request, Response $response, $args) {
+
+  $sql = "select
+Users.name as username,
+Items.name as itemname,
+Univ.*,
+Users.*,
+Items.*,
+Payinfo.*
+from Users
+inner join Payinfo
+on Users.id = Payinfo.id
+inner join Items
+on Items.id = Payinfo.id
+inner join Univ
+on Univ.id = Payinfo.id
+where Users.id = ?
+;";
+  $id = $args['id'];
+
   $stmt = $this->db->prepare($sql);
+  $stmt->bindValue(1, $id);
   $stmt->execute();
-  $data = $stmt->fetchAll();
-//  $data['user_id']がuser1_id
+
+  $data = $stmt->fetch();
+  $users = [];
+  $users['user'] = $data;
+
 
 
   // ログインIDをセッションから取得
