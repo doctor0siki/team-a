@@ -15,6 +15,7 @@ $app->get('/purchase/{id}/', function (Request $request, Response $response, $ar
 
     $sql = "select
     Items.user_id,
+    Items.price
     from Items 
     where Items.id = ?
     ;";
@@ -29,42 +30,32 @@ $app->get('/purchase/{id}/', function (Request $request, Response $response, $ar
 
   // Payinfoに購入情報を登録
   // 必要な情報…… user1_id:session_id, user2_id:I.user_id, item_id:I.id
-  $sql = "
-    INSERT INTO
-        Payinfo(user1_id, user2_id, item_id, transaction_status, payout_date)
-    VALUES 
-        (:user1_id, :user2_id, :item_id, 0, NOW())";
-  $stmt = $this->db->prepare($sql);
-  $params = array(':user_id' => $user1_id,
-                  ':user2_id' => $user2_id,
-                  'item_id' => $itemId);
-  $stmt->execute($params);
+
+    $this->db->insert('Payinfo', [
+        'user1_id' => $user1_id,
+        'user2_id' => $user2_id,
+        'payout_date' => date("Y-m-d H:i:s"),
+        'item_id' => $itemId,
+        'transaction_status' => 1
+    ]);
 
   // Itemsのステータスも変更しておく。1:取引完了(sold状態)
-  $sql = "
-        UPADTE Items
-         SET payout_state = 1
-         WHERE id = ".$itemId;
-  $stmt = $this->db->prepare($sql);
-  $stmt->execute();
+  $this->db->update('Items', ['payout_state' => 1], ['id'=>$itemId]);
 
 
-  // 購入者側のmoneyを引いておく。
+
+    // 購入者側のmoneyを引いておく。
   // 購入者のmoneyを取得
   $sql = "SELECT money FROM Users WHERE id = ".$user2_id;
   $stmt = $this->db->prepare($sql);
   $stmt->execute();
-  $data_cal = $stmt->fetchAll();
+  $data_cal = $stmt->fetch();
 
   // moneyからpriceを引く
-  $data_cal['money'] = $data_cal['money'] - $data['price'];
+  $balance = $data_cal['money'] - $data['price'];
 
-  // 残った額でUPDATE
-  $sql = "UPDATE Users 
-            SET money = " . $data_cal['money'] .
-            " WHERE id = " .$user2_id;
-  $stmt = $this->db->prepare($sql);
-  $stmt->execute();
+
+  $this->db->update('Users', ['money' => $balance], ['id'=>$user2_id]);
 
     // Render index view
     return $this->view->render($response, 'thanks/thanks.twig');
