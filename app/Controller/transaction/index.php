@@ -27,6 +27,28 @@ $app->get('/transaction/', function (Request $request, Response $response) {
 
 // 取引詳細画面コントローラ
 $app->get('/transaction/detail', function (Request $request, Response $response) {
+  // getで取引ID、sessionでuser_idを取得する
+  $get_data = $request->getQueryParams(); // $get_data['id']  商品ID
+  $session = $this->session["user_info"]; // $session['id'] 買い手側のユーザーID
+
+  // 取得した取引IDでPayinfoテーブルを検索
+  // 必要なのは、商品ID・商品名・商品説明・商品価格・payout_date
+  //          ・transaction_status(0:取引中の為取引完了ボタンが必要、1:取引完了の為取引完了情報を表示。)
+  $sql = "
+    SELECT I.id, I.name, I.describe, I.price, P.payout_date, P.transaction_status
+    FROM Items I
+        INNER JOIN Payinfo P on I.id = P.item_id
+    WHERE I.id = ".$get_data['id'];
+  $stmt = $this->db->prepare($sql);
+  $stmt->execute();
+  $result = $stmt->fetchAll();
+
+
+  return $this->view->render($response, 'transaction/detail.twig', $data);
+});
+
+// 取引完了画面コントローラ
+$app->post('/transaction/complete', function (Request $request, Response $response) {
 
   // 商品IDをgetリクエストから取得
   $get_data = $request->getQueryParams();
