@@ -33,8 +33,8 @@ return [
                 'driver' => 'pdo_mysql',
                 'host' => '127.0.0.1',
                 'port' => '3306',
-                'user' => 'root',
-                'password' => 'password',
+                'user' => 'team-a',
+                'password' => 'team-a!',
                 'dbname' => 'team-a',
                 'charset' => 'utf8'
             ]
