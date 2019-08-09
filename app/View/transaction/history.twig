@@ -1,7 +1,42 @@
 {# ヘッダー #}
+{% extends "layout/layout.twig" %}
 
-{# 商品画像:id #}
-{# 商品名:name #}
-{# 商品価格:price #}
+{#HTMLのタイトルを定義します。#}
+{% block title %}取引履歴{% endblock %}
+
+{# このページに適用させたいスタイルシートを指定します #}
+{% block header_scripts_add %}{% endblock %}
+
+
+{% block page_content %}
+{% for result in result %}
+    {{ dump(result)  }}
+    <br>
+{% endfor %}
+
+    {% for item in result %}
+        {% for num in item %}
+            {{ item.num.name }}
+
+        {% endfor %}
+        <h2> item id </h2>
+        <p> {{ item.id  }} </p>
+        <h2> item name </h2>
+        <p> {{ item.name  }} </p>
+        <h2> item describe </h2>
+        <p> {{ item.describe  }} </p>
+        <h2> item price </h2>
+        <p> {{ item.price  }} </p>
+    {% endfor %}
+
+{% endblock %}
+
+  {# 商品画像:id #}
+  {# 商品名:name #}
+  {# 商品価格:price #}
+{#
+
+#}
 
 {# フッター #}
+{% block footer_scripts_add %}{% endblock %}
