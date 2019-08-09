@@ -7,8 +7,7 @@ use Model\Dao\Users;
 use Model\Dao\Items;
 use Model\Dao\Univ;
 
-// TRADEページのコントローラ
-$app->get('/purchase/{id}/', function (Request $request, Response $response, $args) {
+$app->get('/thanks/{id}/', function (Request $request, Response $response, $args) {
 
   $sql = "select
 Users.name as username,
@@ -37,5 +36,5 @@ where Users.id = ?
 
 
     // Render index view
-    return $this->view->render($response, 'purchase/purchase.twig', $users);
+    return $this->view->render($response, 'thanks/thanks.twig', $users);
 });

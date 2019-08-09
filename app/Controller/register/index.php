@@ -2,7 +2,7 @@
 
 use Slim\Http\Request;
 use Slim\Http\Response;
-use Model\Dao\User;
+use Model\Dao\Users;
 
 
 // 会員登録ページコントローラ
@@ -23,7 +23,7 @@ $app->post('/register/', function (Request $request, Response $response) {
     $data = $request->getParsedBody();
 
     //ユーザーDAOをインスタンス化
-    $user = new User($this->db);
+    $user = new Users($this->db);
 
     //入力されたメールアドレスの会員が登録済みかどうかをチェックします
     if ($user->select(array("email" => $data["email"]), "", "", 1, false)) {

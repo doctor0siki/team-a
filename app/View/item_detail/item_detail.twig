@@ -38,8 +38,10 @@
   </div>
 
   <div class="trade-button">
-    <p class="trade-money-sentence">￥{{ user.money }}</p>
-    <button type="button" class="purchase-btn"　autofocus="true">購入する</button>
+    <p class="trade-money-sentence">あなたの所持金￥{{ user.money }}</p>
+    <a href='/purchase/{{ user.id }}/'>
+      <button type="button" class="purchase-btn"　autofocus="true">購入する</button>
+    </a>
   </div>
 </div>
 {% endblock %}
