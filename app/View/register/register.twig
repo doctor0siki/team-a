@@ -41,8 +41,13 @@
                                 <input type="text" class="form-control" id="name" name="name" value="{{ name }}" required title="Please enter your name" placeholder="Toru">
                             </div>
                             <div class="form-group">
-                                <label for="password" class="control-label"> <span class="badge badge-danger">必須</span> 大学ID</label>
-                                <input type="text" class="form-control" id="univ_id" name="univ_id" value="{{ univ_id }}" required title="Please enter your univ_id" placeholder="1">
+                                <label for="password" class="control-label"> <span class="badge badge-danger">必須</span> 所属大学</label>
+                                <select class="custom-select" name="univ_id" required>
+                                    <option disabled selected="selected">大学を選択してください</option>
+                                    <option value="1">神奈川大学</option>
+                                    <option value="2">金沢工業大学</option>
+                                </select>
+                                <div class="invalid-feedback">Example invalid custom select feedback</div>
                             </div>
                             <div class="form-group">
                                 <label for="password" class="control-label"> <span class="badge badge-danger">必須</span> 学籍番号</label>
