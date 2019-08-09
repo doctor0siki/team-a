@@ -15,10 +15,6 @@
 {% endfor %}
 
     {% for item in result %}
-        {% for num in item %}
-            {{ item.num.name }}
-
-        {% endfor %}
         <h2> item id </h2>
         <p> {{ item.id  }} </p>
         <h2> item name </h2>
@@ -30,13 +26,6 @@
     {% endfor %}
 
 {% endblock %}
-
-  {# 商品画像:id #}
-  {# 商品名:name #}
-  {# 商品価格:price #}
-{#
-
-#}
 
 {# フッター #}
 {% block footer_scripts_add %}{% endblock %}

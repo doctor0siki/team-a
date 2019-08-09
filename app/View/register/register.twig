@@ -41,16 +41,21 @@
                                 <input type="text" class="form-control" id="name" name="name" value="{{ name }}" required title="Please enter your name" placeholder="Toru">
                             </div>
                             <div class="form-group">
-                                <label for="password" class="control-label"> <span class="badge badge-danger">必須</span> 郵便番号</label>
-                                <input type="text" class="form-control " id="zipcode" name="zipcode" value="{{ zipcode }}" style="width: 30%" required title="Please enter your zipcode" placeholder="110-0011">
+                                <label for="password" class="control-label"> <span class="badge badge-danger">必須</span> 所属大学</label>
+                                <select class="custom-select" name="univ_id" required>
+                                    <option disabled selected="selected">大学を選択してください</option>
+                                    <option value="1">神奈川大学</option>
+                                    <option value="2">金沢工業大学</option>
+                                </select>
+                                <div class="invalid-feedback">Example invalid custom select feedback</div>
                             </div>
                             <div class="form-group">
-                                <label for="password" class="control-label"> <span class="badge badge-danger">必須</span> 住所</label>
-                                <input type="text" class="form-control" id="address" name="address" value="{{ address }}" required title="Please enter your address" placeholder="東京都千代田区霞が関２丁目１−１">
+                                <label for="password" class="control-label"> <span class="badge badge-danger">必須</span> 学籍番号</label>
+                                <input type="text" class="form-control" id="student_no" name="student_no" value="{{ student_no }}" required title="Please enter your student_no" placeholder="123456">
                             </div>
                             <div class="form-group">
-                                <label for="password" class="control-label"> <span class="badge badge-danger">必須</span> 電話番号</label>
-                                <input type="tel" class="form-control" id="tel" name="tel" value="{{ tel }}" required title="Please enter your tel no" placeholder="03-1234-5678">
+                                <label for="password" class="control-label"> <span class="badge badge-danger">必須</span> 金額</label>
+                                <input type="text" class="form-control" id="money" name="money" value="{{ money }}" required title="Please enter your money" placeholder="10000">
                             </div>
                             <div class="form-group">
                                 <label for="password" class="control-label">利用規約</label>

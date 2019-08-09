@@ -1,0 +1,36 @@
+{#レイアウトを継承します#}
+{% extends "layout/layout.twig" %}
+
+{#HTMLのタイトルを定義します。#}
+{% block title %}サービス名{% endblock %}
+
+{% block page_content %}
+{% for user in users %}
+<div class="purchase-screen">
+  <div class="purchase-item-image">
+    <img class="purchase-image" src="/assets/img/item.png" alt="">
+    <p>商品名　　　{{ user.itemname }}</p>
+    <p>商品価格　　　{{ user.price }}</p>
+  </div>
+
+  <form action="/form.php" method="post" class="purchase-item-price-form">
+        <select name="example">
+          <option value="選択肢1">visa</option>
+          <option value="選択肢2">paypay</option>
+          <option value="選択肢3" selected>楽天pay</option>
+          <option value="選択肢4">LINE Pay</option>
+          <option value="選択肢5">その他</option>
+        </select>
+        <p class="purchase-money-sentence">あなたの所持金   ￥{{ user.money }}</p>
+        <div>
+            <label for="name">取引価格</label>
+            <input type="text" name="price">
+        </div>
+
+        <div class="purchase-button">
+          <button type="submit" class="purchase-btn"　autofocus="true">購入する</button>
+        </div>
+    </form>
+</div>
+{% endfor %}
+{% endblock %}

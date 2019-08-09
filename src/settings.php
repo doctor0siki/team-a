@@ -31,7 +31,7 @@ return [
 
             'connection' => [
                 'driver' => 'pdo_mysql',
-                'host' => '127.0.0.1',
+                'host' => '192.168.0.19',
                 'port' => '3306',
                 'user' => 'team-a',
                 'password' => 'team-a!',

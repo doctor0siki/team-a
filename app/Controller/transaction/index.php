@@ -9,7 +9,7 @@ $app->get('/transaction/', function (Request $request, Response $response) {
 
   // ユーザーIDをセッションから取得(買う側
   //$data = $this->session["user_info"];
-  $data['id'] = 3;
+  $data['id'] = 2;
 
   // 取得したユーザーIDでPayinfoテーブルを検索
   $sql = "
@@ -22,12 +22,11 @@ $app->get('/transaction/', function (Request $request, Response $response) {
   $stmt->bindValue(1, $data['id']);
   $stmt->execute();
 //  var_dump($result); exit;
-  $data['result'] = $stmt->fetchAll();
-  var_dump($data);
-  exit;
+  $params['result'] = $stmt->fetchAll();
+  var_dump($params['result']);
 
   // セッションのデータ(user_id)でItemsテーブルを参照し、取引しているすべての商品の情報を取得する。
-  return $this->view->render($response, 'transaction/history.twig', $data);
+  return $this->view->render($response, 'transaction/history.twig', $params);
 });
 
 // 取引詳細画面コントローラ
