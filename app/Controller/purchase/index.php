@@ -61,6 +61,6 @@ $app->get('/purchase/', function (Request $request, Response $response) {
   $stmt = $this->db->prepare($sql);
   $stmt->execute();
 
-    // Render index view
-    return $this->view->render($response, 'purchase/purchase.twig', $users);
+    // 購入完了画面(サンクス)
+    return $this->view->render($response, 'purchase/thanks.twig');
 });
