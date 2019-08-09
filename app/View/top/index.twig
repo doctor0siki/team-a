@@ -24,7 +24,9 @@
     <div class="image-grid">
         {% for user in users %}
         <div class="top-image">
-          <img class="top-item-image" src="/assets/img/item.png" alt="">
+          <a href='/item_detail/{{ user.id }}/'>
+            <img class="top-item-image" src="/assets/img/item-{{ user.id }}.png" alt="">
+          </a>
           <p>大学名 {{user.univ_name }}</p>
           <p>￥  {{ user.price }}</p>
         </div>
